@@ -10,6 +10,7 @@
     <th></th>
   </tr>
 
+<%= paginate @products %>
 <% @products.each do |product| %>
   <tr>
     <td><%= product.title %></td>
