@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+
+  before_filter :authenticate_user!, except: [:show, :index]
   before_filter :set_product, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
