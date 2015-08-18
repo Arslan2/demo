@@ -2,7 +2,7 @@ class Attachment < ActiveRecord::Base
 
   attr_accessible :attachable_id, :attachable_type, :photo
 
-  belongs_to :attachable, polymorphic: true, dependent: :destroy
+  belongs_to :attachable, polymorphic: true
 
   has_attached_file :photo, styles: { small: "150x150>", medium: "500x500>" },
                             url: "/assets/products/:id/:style/:basename.:extension",
