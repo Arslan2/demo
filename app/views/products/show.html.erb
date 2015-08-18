@@ -15,6 +15,13 @@
   <%= @product.price %>
 </p>
 
+<ul>
+  <% @product.attachments.each do |attachment| %>
+    <li>
+      <%= image_tag(attachment.photo.url(:medium)) %>
+    </li>
+  <% end %>
+</ul>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>
