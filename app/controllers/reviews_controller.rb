@@ -1,21 +1,18 @@
 class ReviewsController < ApplicationController
+  before_filter :set_product
   before_filter :set_review, only: [:show, :edit, :update, :destroy]
-  before_filter :set_product, only: [:create]
-
-  respond_to :html
+  respond_to :html, :js
 
   def index
-    @reviews = Review.all
+    @reviews = Product.find(params[:product_id]).reviews
     respond_with(@reviews)
   end
 
   def show
-    respond_with(@review)
   end
 
   def new
     @review = Review.new
-    respond_with(@review)
   end
 
   def edit
@@ -32,12 +29,12 @@ class ReviewsController < ApplicationController
 
   def update
     @review.update_attributes(params[:review])
-    respond_with(@review)
+    redirect_to([@product, @review])
   end
 
   def destroy
     @review.destroy
-    respond_with(@review)
+    redirect_to([@product, @review])
   end
 
   private
