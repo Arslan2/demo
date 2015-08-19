@@ -23,5 +23,11 @@
   <% end %>
 </ul>
 
+<ul id ="show-reviews">
+  <%= render @product.reviews %>
+</ul>
+
+<%= render 'reviews/ajax_form' %>
+
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>

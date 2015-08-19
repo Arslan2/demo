@@ -11,6 +11,8 @@ class ProductsController < ApplicationController
   end
 
   def show
+    @review = @product.reviews.build
+    @reviews = @product.reviews
     respond_with(@product)
   end
 
