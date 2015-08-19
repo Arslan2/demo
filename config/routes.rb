@@ -1,5 +1,9 @@
 Demo::Application.routes.draw do
 
+  get "user/show"
+
+  get "user/dashboard"
+
   resources :products do
     resources :reviews
   end
