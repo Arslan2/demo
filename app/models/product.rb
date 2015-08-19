@@ -5,6 +5,7 @@ class Product < ActiveRecord::Base
 
   has_many :attachments, as: :attachable
   has_many  :reviews
+  belongs_to :user
 
   accepts_nested_attributes_for :attachments, allow_destroy: true
 
