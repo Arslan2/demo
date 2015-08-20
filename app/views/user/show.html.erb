@@ -1,2 +1,11 @@
-<h1>User#show</h1>
-<p>Find me in app/views/user/show.html.erb</p>
+<h1><%= [@user.first_name, @user.last_name].join(" ") %></h1>
+<%= image_tag(@user.attachment.photo.url(:small)) %>
+<div><%= @user.email %></div>
+
+<%= paginate @products %>
+
+<% @products.each do |product| %>
+  <h1><%= product.title %></h1>
+  <div><%= product.body %></div>
+  <div><%= link_to 'Goto Product', product %></div>
+<% end %>
