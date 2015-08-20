@@ -11,8 +11,8 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @review = @product.reviews.build
     @reviews = @product.reviews
+    @review = Review.new
     respond_with(@product)
   end
 
@@ -25,7 +25,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(params[:product])
+    @product = current_user.products.new(params[:product])
     @product.save
     respond_with(@product)
   end
@@ -42,6 +42,6 @@ class ProductsController < ApplicationController
 
   private
     def set_product
-      @product = Product.find(params[:id])
+      @product = Product.includes(:user).find(params[:id])
     end
 end
