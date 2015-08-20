@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
 
+  PER_PAGE = 5
   has_one :attachment, as: :attachable
   has_many :products, dependent: :destroy
   has_many :reviews, dependent: :destroy
@@ -13,6 +14,7 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :attachment
 
+  scope :ordered, -> { order('updated_at desc') }
   def fetch_attachment
     self.attachment.present? ? self.attachment : self.build_attachment
   end

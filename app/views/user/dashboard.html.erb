@@ -1,2 +1,23 @@
-<h1>User#dashboard</h1>
-<p>Find me in app/views/user/dashboard.html.erb</p>
+<h1>Welcome <%= current_user.first_name.to_s + " " + current_user.last_name.to_s %></h1>
+<%= image_tag(current_user.attachment.photo.url(:small)) %>
+Logged in as: <%= current_user.email %>
+
+<h1>Products</h1>
+<div>
+  <%= paginate @products %>
+  <%= render @products %>
+</div>
+
+<h1>Reviews Activity</h1>
+<%= paginate @reviews %>
+
+<div>
+  <% @reviews.each do |review| %>
+    <div>
+      <div><%= render review %></div>
+      <div><%= link_to 'Go to product', product_path(review.product) %></div>
+      <div><%= link_to 'Edit', edit_product_review_path(review.product, review) %></div>
+      <div><%= link_to 'Destroy', product_review_path(review.product, review), method: :delete, data: { confirm: 'Are you sure?' } %></div>
+    </div>
+  <% end %>
+</div>

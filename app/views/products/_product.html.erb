@@ -1,0 +1,8 @@
+<div>
+  <div><%= image_tag(product.attachments.first.photo.url(:small)) %></div>
+  <div><%= product.title %></div>
+  <div><%= product.price %></div>
+  <div><%= link_to 'Show', product %></div>
+  <div><%= link_to 'Edit', edit_product_path(product) %></div>
+  <div><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+</div>
