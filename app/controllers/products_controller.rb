@@ -31,11 +31,13 @@ class ProductsController < ApplicationController
   end
 
   def update
+    return redirect_to product_path, notice: "You can only modify your own Product." unless owner?(@product.user_id)
     @product.update_attributes(params[:product])
     respond_with(@product)
   end
 
   def destroy
+    return redirect_to root_url, notice: "You can only delete your own Product." unless owner?(@product.user_id)
     @product.destroy
     respond_with(@product)
   end
