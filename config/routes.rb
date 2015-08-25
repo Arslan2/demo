@@ -1,5 +1,7 @@
 Demo::Application.routes.draw do
 
+  resources :orders
+
   root :to => 'products#index'
   devise_for :admin_users, ActiveAdmin::Devise.config
 
