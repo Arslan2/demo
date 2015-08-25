@@ -7,6 +7,9 @@ class Product < ActiveRecord::Base
   has_many  :reviews, dependent: :destroy
   belongs_to :user
 
+  validates :body, :price, :title, :attachments, presence: true
+  validates_numericality_of :price, greater_than_equal_to: 0
+
   accepts_nested_attributes_for :attachments, allow_destroy: true
 
   scope :ordered, -> { order("created_at desc") }
