@@ -4,7 +4,7 @@ class Product < ActiveRecord::Base
   attr_accessible :body, :price, :title, :attachments_attributes
 
   has_many :attachments, as: :attachable, dependent: :destroy
-  has_many  :reviews
+  has_many  :reviews, dependent: :destroy
   belongs_to :user
 
   accepts_nested_attributes_for :attachments, allow_destroy: true
