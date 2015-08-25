@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
     current_user.to_param.to_i == user_id if current_user
   end
 
-  helper_method :owner?
+  def display_name (user)
+    [user.first_name, user.last_name].join(" ")
+  end
+
+  helper_method :owner?, :display_name
 
 end
