@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :attachment_attributes
 
+  validates :first_name, :last_name, presence: true, length: { minimum: 3, maximum: 50 }
+
   accepts_nested_attributes_for :attachment
 
   scope :ordered, -> { order('updated_at desc') }
