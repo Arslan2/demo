@@ -5,6 +5,7 @@ class Product < ActiveRecord::Base
 
   has_many :attachments, as: :attachable, dependent: :destroy
   has_many  :reviews, dependent: :destroy
+  has_many :orders, through: :order_products
   belongs_to :user
 
   validates :body, :price, :title, :attachments, presence: true
