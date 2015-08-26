@@ -9,6 +9,14 @@ class ApplicationController < ActionController::Base
     [user.first_name, user.last_name].join(" ")
   end
 
-  helper_method :owner?, :display_name
+  def in_cart? (product)
+    (ActiveSupport::JSON.decode(cookies[:products])).include?(product.id.to_s) if cookies[:products]
+  end
+
+  def short_description(product)
+    [product.body[0..50],"..."].join
+  end
+
+  helper_method :owner?, :display_name, :in_cart?, :short_description
 
 end

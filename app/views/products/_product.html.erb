@@ -1,8 +1,14 @@
-<div>
-  <div><%= image_tag(product.attachments.first.photo.url(:small)) %></div>
+<div class="col-md-4">
+  <%= link_to product do %>
+    <%= image_tag(product.attachments.first.photo.url(:small)) %>
+  <% end %>
+</div>
+<div class="col-md-8">
   <div><%= product.title %></div>
   <div><%= product.price %></div>
-  <div><%= link_to 'Show', product %></div>
-  <div><%= link_to 'Edit', edit_product_path(product) %></div>
-  <div><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+  <div class="product-links">
+    <%= link_to 'Show', product, class: "btn btn-success btn-sm" %>
+    <%= link_to 'Edit', edit_product_path(product), class: "btn btn-warning btn-sm" %>
+    <%= link_to 'Delete', product, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+  </div>
 </div>

@@ -1,31 +1,33 @@
-<h1>Product Owner</h1>
-<%= @product.user.email %>
-<%= link_to 'Show Profile', user_path(@product.user) %>
-<p>
+<h1><%= @product.title %></h1>
+<b>Product Owner</b>
+<%= link_to display_name(@product.user), user_path(@product.user) %>
+
+<div>
   <b>Title:</b>
   <%= @product.title %>
-</p>
+</div>
 
-<p>
-  <b>Body:</b>
+<div>
+  <b>Description:</b>
   <%= @product.body %>
-</p>
+</div>
 
-<p>
+<div>
   <b>Price:</b>
   <%= @product.price %>
-</p>
+</div>
 
-<ul>
+
   <% @product.attachments.each do |attachment| %>
-    <li>
+    <div>
       <%= image_tag(attachment.photo.url(:medium)) %>
-    </li>
+    </div>
   <% end %>
-</ul>
+
 
 <ul id ="show-reviews">
   <% @reviews.each do |review| %>
+    <strong><%= link_to display_name(review.user), user_path(review.user) %></strong>
     <%= render 'reviews/review', review: review %>
     <% if owner?(@product.user_id) %>
       <%= link_to 'Destroy', product_review_path(@product, review), method: :delete, data: { confirm: 'Are you sure?' } %>
@@ -36,6 +38,6 @@
 <% unless owner?(@product.user_id) %>
   <%= render 'reviews/ajax_form' %>
 <% else %>
-  <%= link_to 'Edit', edit_product_path(@product) %> |
+  <%= link_to 'Edit', edit_product_path(@product), class: "btn btn-warning" %>
 <% end %>
-<%= link_to 'Back', products_path(@product) %>
+<%= link_to 'Back', products_path %>
