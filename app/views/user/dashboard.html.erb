@@ -1,23 +1,46 @@
-<h1>Welcome <%= current_user.first_name.to_s + " " + current_user.last_name.to_s %></h1>
+<h1>
+  Welcome <%= display_name(current_user) %>
+  <small><%= current_user.email %></small>
+</h1>
+
 <%= image_tag(current_user.attachment.photo.url(:small)) %>
-Logged in as: <%= current_user.email %>
 
-<h1>Products</h1>
-<div>
-  <%= paginate @products %>
-  <%= render @products %>
-</div>
+<div class="row">
+  <div class="col-md-6">
+    <h1>Your Products</h1>
+    <%= paginate @products %>
 
-<h1>Reviews Activity</h1>
-<%= paginate @reviews %>
+      <% @products.each do |product| %>
+        <div class="row">
+          <div class="item-container">
+            <%= render product %>
+          </div>
+        </div>
+      <% end %>
+  </div>
 
-<div>
-  <% @reviews.each do |review| %>
-    <div>
-      <div><%= render review %></div>
-      <div><%= link_to 'Go to product', product_path(review.product) %></div>
-      <div><%= link_to 'Edit', edit_product_review_path(review.product, review) %></div>
-      <div><%= link_to 'Destroy', product_review_path(review.product, review), method: :delete, data: { confirm: 'Are you sure?' } %></div>
-    </div>
-  <% end %>
+  <div class="col-md-6">
+    <h1>Your Reviews Activity</h1>
+    <%= paginate @reviews %>
+
+    <% @reviews.each do |review| %>
+      <div class="row">
+        <div class="item-container">
+          <div class="col-md-4">
+            <%= link_to product_path(review.product) do %>
+              <%= render review %>
+            <% end%>
+          </div>
+
+          <div class="col-md-8">
+            <div class="product-links">
+              <%= link_to 'Go to product', product_path(review.product), class: "btn btn-success btn-sm" %>
+              <%= link_to 'Edit', edit_product_review_path(review.product, review), class: "btn btn-warning btn-sm" %>
+              <%= link_to 'Delete', product_review_path(review.product, review), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
