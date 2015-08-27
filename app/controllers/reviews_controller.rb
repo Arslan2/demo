@@ -52,7 +52,7 @@ class ReviewsController < ApplicationController
     end
 
     def authenticate_review_owner
-      unless owner?(@review.user_id)
+      unless owner?(@review.user_id) || owner?(@product.user_id)
          flash[:notice] = "You can only modify your own reviews."
          redirect_to action: "index"
       end
