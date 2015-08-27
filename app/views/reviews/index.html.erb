@@ -8,17 +8,16 @@
     <th></th>
   </tr>
 
-<% @reviews.each do |review| %>
-  <tr>
-    <td><%= review.comment %></td>
-    <% if owner?(review.user_id) %>
-      <td><%= link_to 'Edit', edit_product_review_path(@product, review) %></td>
-      <td><%= link_to 'Destroy', product_review_path(@product, review), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    <% end %>
-  </tr>
-<% end %>
-</table>
+  <% @reviews.each do |review| %>
+    <tr>
+      <td><%= review.comment %></td>
+      <% if owner?(review.user_id) %>
+        <td><%= link_to 'Edit', edit_product_review_path(@product, review) %></td>
+        <td><%= link_to 'Destroy', product_review_path(@product, review), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+    </tr>
+  <% end %>
 
-<br />
+</table>
 
 <%= link_to 'New Review', new_product_review_path(@product) %>
