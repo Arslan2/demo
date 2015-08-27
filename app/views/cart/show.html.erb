@@ -1,2 +1,37 @@
-<h1>Cart#show</h1>
-<p>Find me in app/views/cart/show.html.erb</p>
+<h1>Your Order</h1>
+<% if @products.present? %>
+  <table class="table" >
+    <caption>Your Order</caption>
+    <tr>
+      <th>Item</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th></th>
+    </tr>
+
+    <% @products.each do |product| %>
+      <tr id="remove-row-<%= product.id %>">
+        <td><%= product.title %></td>
+        <td><%= truncate_string(product.body, 100) %></td>
+        <td><%= product.price %></td>
+        <td><%= link_to 'Remove', cart_remove_path, id: "remove-#{product.id}", data: { remote: true, params: { product_id: product.id }.to_param }, class: 'btn btn-warning btn-sm' %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td><strong>Grand Total</strong></td>
+      <td></td>
+      <td><strong><div id="sum"><%= ["$", @sum].join("") %></div></strong></td>
+      <td></td>
+    </tr>
+  </table>
+
+  <div class="row">
+    <div class="col-md-6 pull-right">
+      <%= link_to 'Proceed to checkout', new_order_path, class: 'btn btn-success pull-right' %>
+      <%= link_to 'Back to store', root_path, class: 'btn btn-info pull-right align-right' %>
+    </div>
+  </div>
+
+<% else %>
+  <b>You have 0 items in your cart :(</b>
+<% end %>

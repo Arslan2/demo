@@ -17,6 +17,14 @@ class ApplicationController < ActionController::Base
     [product.body[0..50],"..."].join
   end
 
+  def decode_cookie
+    ActiveSupport::JSON.decode(cookies[:products])
+  end
+
+  def encode_cookie(product)
+    { value: ActiveSupport::JSON.encode(product)}
+  end
+
   helper_method :owner?, :display_name, :in_cart?, :short_description
 
 end
