@@ -8,7 +8,7 @@ class Product < ActiveRecord::Base
   has_many :orders, through: :order_products
   belongs_to :user
 
-  validates :body, :price, :title, :attachments, presence: true
+  validates :body, :price, :title, presence: true
   validates_numericality_of :price, greater_than_equal_to: 0
 
   accepts_nested_attributes_for :attachments, allow_destroy: true

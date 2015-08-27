@@ -1,11 +1,5 @@
-<h1><%= @product.title %></h1>
 <b>Product Owner</b>
 <%= link_to display_name(@product.user), user_path(@product.user) %>
-
-<div>
-  <b>Title:</b>
-  <%= @product.title %>
-</div>
 
 <div>
   <b>Description:</b>
@@ -13,31 +7,38 @@
 </div>
 
 <div>
-  <b>Price:</b>
+  <b>Price: $</b>
   <%= @product.price %>
 </div>
 
-
+<% if @product.attachments.present? %>
   <% @product.attachments.each do |attachment| %>
     <div>
-      <%= image_tag(attachment.photo.url(:medium)) %>
+      <%= image_tag fetch_image(attachment) %>
     </div>
   <% end %>
+<% else %>
+  <%= image_tag fetch_image(@product.attachments.first) %>
+<% end %>
 
-
+<h1>Reviews</h1>
 <ul id ="show-reviews">
   <% @reviews.each do |review| %>
-    <strong><%= link_to display_name(review.user), user_path(review.user) %></strong>
-    <%= render 'reviews/review', review: review %>
+    <strong><%= link_to display_name(review.user), user_path(review.user) %> says</strong>
+    <%= render 'reviews/full_review', review: review %>
     <% if owner?(@product.user_id) %>
-      <%= link_to 'Destroy', product_review_path(@product, review), method: :delete, data: { confirm: 'Are you sure?' } %>
+      <div>
+        <%= link_to product_review_path(@product, review), method: :delete, data: { confirm: 'Are you sure?' } do %>
+          <%= image_tag "cross.png", alt: "Delete" %>
+        <% end %>
+      </div>
     <% end %>
   <% end %>
 </ul>
 
-<% unless owner?(@product.user_id) %>
-  <%= render 'reviews/ajax_form' %>
-<% else %>
+<% if owner?(@product.user_id) %>
   <%= link_to 'Edit', edit_product_path(@product), class: "btn btn-warning" %>
+<% else %>
+  <%= render 'reviews/ajax_form' if current_user.present? %>
 <% end %>
 <%= link_to 'Back', products_path %>

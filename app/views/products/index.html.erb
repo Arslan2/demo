@@ -7,7 +7,7 @@
     <div class="col-sm-6 col-md-4">
       <div class="thumbnail">
         <div class ="image-container">
-          <%= image_tag(product.attachments.first.photo.url(:small)) %>
+          <%= image_tag fetch_image(product.attachments.first) %>
         </div>
         <div class="caption">
           <h3><%= product.title %></h3>

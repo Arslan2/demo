@@ -3,7 +3,7 @@
   <small><%= current_user.email %></small>
 </h1>
 
-<%= image_tag(current_user.attachment.photo.url(:small)) %>
+<%= image_tag fetch_image(current_user.attachment) %>
 
 <div class="row">
   <div class="col-md-6">
@@ -35,8 +35,12 @@
           <div class="col-md-8">
             <div class="product-links">
               <%= link_to 'Go to product', product_path(review.product), class: "btn btn-success btn-sm" %>
-              <%= link_to 'Edit', edit_product_review_path(review.product, review), class: "btn btn-warning btn-sm" %>
-              <%= link_to 'Delete', product_review_path(review.product, review), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+              <%= link_to edit_product_review_path(review.product, review) do %>
+                <%= image_tag "edit.jpg", alt: "Edit" %>
+              <% end %>
+              <%= link_to product_review_path(review.product, review), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                <%= image_tag "cross.png", alt: "Delete" %>
+              <% end %>
             </div>
           </div>
         </div>

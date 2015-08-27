@@ -1,14 +1,18 @@
 <div class="col-md-4">
   <%= link_to product do %>
-    <%= image_tag(product.attachments.first.photo.url(:small)) %>
+    <%= image_tag fetch_image(product.attachments.first) %>
   <% end %>
 </div>
 <div class="col-md-8">
   <div><%= product.title %></div>
   <div><%= product.price %></div>
   <div class="product-links">
-    <%= link_to 'Show', product, class: "btn btn-success btn-sm" %>
-    <%= link_to 'Edit', edit_product_path(product), class: "btn btn-warning btn-sm" %>
-    <%= link_to 'Delete', product, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+    <%= link_to 'Detail', product, class:"btn btn-success btn-sm" %>
+    <%= link_to edit_product_path(product) do %>
+      <%= image_tag "edit.jpg", alt: "Edit" %>
+    <% end %>
+    <%= link_to product, method: :delete, data: { confirm: 'Are you sure?' } do %>
+      <%= image_tag "cross.png", alt: "Delete" %>
+    <% end %>
   </div>
 </div>

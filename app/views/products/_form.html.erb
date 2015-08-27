@@ -29,7 +29,8 @@
 
     <div class="form-group">
       <%= f.fields_for :attachments do |photo_form| %>
-        <%= photo_form.file_field :photo %>
+        <%= photo_form.file_field :photo if photo_form.object.photo.blank? %>
+        <%= image_tag fetch_image(photo_form.object) if photo_form.object.photo.url(:small) %>
         <%= photo_form.link_to_remove "Remove this attachment" %>
       <% end %>
       <p>
