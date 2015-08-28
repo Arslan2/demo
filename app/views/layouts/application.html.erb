@@ -10,13 +10,17 @@
 
     <%= render 'layouts/header' %>
 
+  <div id="notice-msg">
     <% if notice %>
       <div class="alert alert-info" role="alert"><%= notice %></div>
     <% end %>
+  </div>
 
+  <div id="alert-msg">
     <% if alert %>
       <div class="alert alert-warning" role="alert"><%= alert %></div>
     <% end %>
+  </div>
 
     <%= yield %>
 

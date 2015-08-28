@@ -25,6 +25,21 @@
     </tr>
   </table>
 
+<% unless @coupon_applied %>
+  <div class="login-form" id="discount-coupon-form">
+    <%= form_for @coupon, url: cart_discount_path , remote: true, html: { id: 'coupon-form' } do |f| %>
+      <div class="form-group">
+        <%= f.label :coupon_number %>
+        <div id="coupon-field"><%= f.text_field :coupon_number, class:"form-control", placeholder: "Enter your special discount coupon number" %></div>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Validate Coupon", class:"btn btn-info" %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
   <div class="row">
     <div class="col-md-6 pull-right">
       <%= link_to 'Proceed to checkout', new_order_path, class: 'btn btn-success pull-right' %>

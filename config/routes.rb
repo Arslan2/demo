@@ -3,6 +3,7 @@ Demo::Application.routes.draw do
   get "cart/show"
   get "cart/add"
   get "cart/remove"
+  post "cart/discount"
 
   resources :orders
 
