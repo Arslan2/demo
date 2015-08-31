@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_one :attachment, as: :attachable
   has_many :products, dependent: :destroy
   has_many :reviews, dependent: :destroy
+  has_many :orders, dependent: :destroy
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
