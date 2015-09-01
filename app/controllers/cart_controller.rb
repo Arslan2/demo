@@ -31,7 +31,7 @@ class CartController < ApplicationController
       @is_valid_coupon = check_coupon_number
       if @is_valid_coupon
         set_sum
-        flash[:notice] = "Congradulations!! you have receive a special discount"
+        flash[:notice] = "Congratulations!! you have received a special discount"
       else
         flash[:alert] = "Your coupon number is either invalid or has been consumed"
       end

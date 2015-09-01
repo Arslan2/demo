@@ -12,6 +12,7 @@ gem 'kaminari'
 gem 'nested_form'
 gem 'activeadmin'
 gem 'bootstrap-sass', '~> 3.3.5'
+gem 'stripe'
 
 # Gems used only for assets and not required
 # in production environments by default.

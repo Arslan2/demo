@@ -18,11 +18,20 @@ class ApplicationController < ActionController::Base
   end
 
   def decode_cookie
-    ActiveSupport::JSON.decode(cookies[:products])
+    ActiveSupport::JSON.decode(cookies[:products]) if cookies[:products]
   end
 
   def encode_cookie(product)
     { value: ActiveSupport::JSON.encode(product)}
+  end
+
+  def set_products
+    return @products = Product.find(decode_cookie) if cookies[:products]
+    flash[:alert] = "You don't have any order yet."
+  end
+
+  def calculate_total
+    @sum = @products.sum(&:price) if @products
   end
 
   helper_method :owner?, :display_name, :in_cart?, :short_description

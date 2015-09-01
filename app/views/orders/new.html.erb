@@ -1,5 +1,7 @@
-<h1>New order</h1>
+<% if @products.present? %>
+  <h1>Please provide your credentials</h1>
 
-<%= render 'form' %>
+  <%= render 'form' %>
 
-<%= link_to 'Back', orders_path %>
+  <%= link_to 'Back', cart_show_path %>
+<% end %>

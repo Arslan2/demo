@@ -1,15 +1,18 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <b>Amount:</b>
   <%= @order.amount %>
 </p>
 
+<% if @order.discount %>
+  <div>
+    <strong>Discount:</strong>
+    <%= @order.discount %>
+  </div>
+<% end %>
+
 <p>
-  <b>Discount:</b>
-  <%= @order.discount %>
+  <b>Shipping Address:</b>
+  <%= @order.shipping_address %>
 </p>
 
-
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+<%= link_to 'Back', root_path %>
