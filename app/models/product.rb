@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
 
-  PER_PAGE_SIZE = 5
+  PAGE_SIZE = 5
   attr_accessible :body, :price, :title, :attachments_attributes, :user_id
 
   has_many :attachments, as: :attachable, dependent: :destroy
@@ -16,4 +16,22 @@ class Product < ActiveRecord::Base
 
   scope :ordered, -> { order("created_at desc") }
 
+  define_index do
+    indexes body
+    indexes title
+    set_property delta: true
+  end
+
+  def self.perform_search(options)
+    options = {} if options.blank?
+    search_params  = default_search_options(options)
+    self.ordered.search options[:search], search_params
+  end
+
+  def self.default_search_options(options)
+    {
+      page: options[:page],
+      per_page: PAGE_SIZE,
+    }
+  end
 end

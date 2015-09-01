@@ -13,6 +13,7 @@ gem 'nested_form'
 gem 'activeadmin'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'stripe'
+gem 'thinking-sphinx', '2.0.11'
 
 # Gems used only for assets and not required
 # in production environments by default.

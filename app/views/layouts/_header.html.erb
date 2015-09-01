@@ -5,8 +5,17 @@
         <li><%= link_to 'Shopify', root_path %></li>
       </ul>
       <ul class="nav navbar-nav navbar-right nav-pills">
-        <li><%= link_to '', cart_show_path, class:"glyphicon glyphicon-shopping-cart" %></li>
+        <li class="navbar-form" role="search">
+          <%= form_tag products_path, method: 'get' do %>
+            <p>
+              <%= text_field_tag :search, nil, placeholder: 'Enter search term...', class: "form-control"%>
+                <%= button_tag(type: 'submit', class: "glyphicon glyphicon-search") do %>
+                <% end %>
+            </p>
+          <% end %>
+        </li>
 
+        <li><%= link_to '', cart_show_path, class:"glyphicon glyphicon-shopping-cart" %></li>
         <% if user_signed_in? %>
           <li><%= link_to 'New Product', new_product_path %></li>
           <li><%= link_to "Dashboard", user_dashboard_path %></li>
