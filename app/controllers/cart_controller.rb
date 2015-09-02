@@ -10,18 +10,18 @@ class CartController < ApplicationController
   end
 
   def add
-    if cookies[:products]
-      cookies[:products] = encode_cookie(decode_cookie.push(params[:product_id])) unless decode_cookie.include?(params[:product_id])
-    else
-      cookies[:products] = encode_cookie([params[:product_id]])
-    end
+    cookies[:products] = encode_cookie(decode_cookie.push(params[:product_id])) unless decode_cookie.include?(params[:product_id])
+    @cart_count = @cart_count.to_i + 1
   end
 
   def remove
     cart = decode_cookie
-    cookies[:products] = { value: ActiveSupport::JSON.encode(cart -= [params[:product_id]])} if decode_cookie.include?(params[:product_id])
-    set_products
-    set_sum
+    if decode_cookie.include?(params[:product_id])
+      cookies[:products] = { value: ActiveSupport::JSON.encode(cart -= [params[:product_id]]) }
+      @cart_count = @cart_count.to_i - 1
+      set_products
+      set_sum
+    end
   end
 
   def discount

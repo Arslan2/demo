@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  before_filter :set_cart_count
   protect_from_forgery
 
   def owner? (user_id)
@@ -18,7 +19,8 @@ class ApplicationController < ActionController::Base
   end
 
   def decode_cookie
-    ActiveSupport::JSON.decode(cookies[:products]) if cookies[:products]
+    return ActiveSupport::JSON.decode(cookies[:products]) if cookies[:products]
+    return []
   end
 
   def encode_cookie(product)
@@ -38,6 +40,11 @@ class ApplicationController < ActionController::Base
     return new_order_path if session[:checkout_path]
     return admin_dashboard_path if request.referer == new_user_session_path
     return user_dashboard_path
+  end
+
+  private
+  def set_cart_count
+    @cart_count = decode_cookie.length
   end
 
   helper_method :owner?, :display_name, :in_cart?, :short_description

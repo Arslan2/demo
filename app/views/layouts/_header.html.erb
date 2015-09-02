@@ -15,7 +15,13 @@
           <% end %>
         </li>
 
-        <li><%= link_to '', cart_show_path, class:"glyphicon glyphicon-shopping-cart" %></li>
+        <li>
+          <div class="cart-icon">
+            <%= link_to cart_show_path, class:"glyphicon glyphicon-shopping-cart" do %>
+              <span class="badge" id="cart-count"><%= @cart_count %></span>
+            <% end %>
+          </div>
+        </li>
         <% if user_signed_in? %>
           <li><%= link_to 'New Product', new_product_path %></li>
           <li><%= link_to "Dashboard", user_dashboard_path %></li>
