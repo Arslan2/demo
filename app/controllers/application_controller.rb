@@ -34,6 +34,12 @@ class ApplicationController < ActionController::Base
     @sum = @products.sum(&:price) if @products
   end
 
+  def after_sign_in_path_for(resource)
+    return new_order_path if session[:checkout_path]
+    return admin_dashboard_path if request.referer == new_user_session_path
+    return user_dashboard_path
+  end
+
   helper_method :owner?, :display_name, :in_cart?, :short_description
 
 end

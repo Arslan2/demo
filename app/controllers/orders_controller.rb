@@ -1,4 +1,5 @@
 class OrdersController < InheritedResources::Base
+  before_filter :set_return_path, only: [:new]
   before_filter :authenticate_user!
   before_filter :set_products, only: [:new, :create]
   before_filter :calculate_total, only: [:new, :create]
@@ -54,6 +55,10 @@ class OrdersController < InheritedResources::Base
   def clear_cart
     cookies.delete :products
     session.delete(:coupon_number)
+  end
+
+  def set_return_path
+    session[:checkout_path] = true unless user_signed_in?
   end
 end
 

@@ -9,6 +9,7 @@ Demo::Application.routes.draw do
 
   root :to => 'products#index'
   devise_for :admin_users, ActiveAdmin::Devise.config
+  devise_for :users, controllers: { registrations: :registrations }
 
   get "user/dashboard"
 
