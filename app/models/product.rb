@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
 
-  PAGE_SIZE = 5
+  PAGE_SIZE = 12
   attr_accessible :body, :price, :title, :attachments_attributes, :user_id
 
   has_many :attachments, as: :attachable, dependent: :destroy

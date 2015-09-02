@@ -8,4 +8,8 @@ module ApplicationHelper
   def truncate_string(string, length)
     string.truncate(length.to_i,separator: " ")
   end
+
+  def append_currency(amount)
+    ["$", amount].join
+  end
 end
