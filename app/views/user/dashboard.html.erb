@@ -7,8 +7,8 @@
 
 <div class="row">
   <div class="col-md-6">
-    <h1>Your Products</h1>
-    <%= paginate @products %>
+    <h1>Products</h1>
+    <%= paginate @products, param_name: "product_page" %>
 
       <% @products.each do |product| %>
         <div class="row">
@@ -18,10 +18,12 @@
         </div>
       <% end %>
   </div>
+</div>
 
+<div class="row">
   <div class="col-md-6">
-    <h1>Your Reviews Activity</h1>
-    <%= paginate @reviews %>
+    <h1>Reviews Activity</h1>
+    <%= paginate @reviews, param_name: "review_page" %>
 
     <% @reviews.each do |review| %>
       <div class="row">

@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
 
-  PER_PAGE = 5
   has_one :attachment, as: :attachable
   has_many :products, dependent: :destroy
   has_many :reviews, dependent: :destroy
