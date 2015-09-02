@@ -1,2 +1,6 @@
-$('#show-reviews').append('<% if @review.comment.length > 1 %><%= link_to display_name(@review.user), user_path(@review.user) %><li><%= @review.comment %></li><% else %><script>alert("Too short review")</script><% end %>');
+<% if @review.comment.length > 1 %>
+  $('#show-reviews').append('<strong><%= link_to display_name(@review.user), user_path(@review.user) %> says</strong><li><%= @review.comment.gsub(/[\n\r\t]/, '') %></li>');
+<% else %>
+  alert("Too short review");
+<% end %>
 $('#review-form')[0].reset();
