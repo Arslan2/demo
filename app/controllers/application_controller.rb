@@ -42,6 +42,10 @@ class ApplicationController < ActionController::Base
     return user_dashboard_path
   end
 
+  def set_discount
+    @discounted_sum = DiscountCoupon.get_discount(@sum) if session[:coupon_number]
+  end
+
   private
   def set_cart_count
     @cart_count = decode_cookie.length

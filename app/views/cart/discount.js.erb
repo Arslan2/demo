@@ -1,6 +1,8 @@
 <% if @is_valid_coupon %>
   $('#coupon-field').removeClass('form-group has-error').addClass('form-group has-success');
-  $('#sum').text('<%= ["$", @sum].join(" ") %>');
+  $('#sum').text("").append("<del><%= append_currency(@sum) %></del>");
+  $('#discounted-price-row').show();
+  $('#discounted-sum').text('<%= append_currency(@discounted_sum) %>');
   $('#discount-coupon-form').hide();
   $('#alert-msg').hide();
   $('#notice-msg').show();

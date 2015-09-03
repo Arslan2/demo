@@ -43,10 +43,6 @@ class OrdersController < InheritedResources::Base
     @discounted_sum || @sum
   end
 
-  def set_discount
-    @discounted_sum = DiscountCoupon.get_discount(@sum) if session[:coupon_number]
-  end
-
   def update_user_address(new_address)
     current_user.address = new_address
     current_user.save

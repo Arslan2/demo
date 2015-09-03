@@ -7,6 +7,7 @@ class CartController < ApplicationController
 
   def show
     @coupon = DiscountCoupon.new
+    set_discount
   end
 
   def add
@@ -21,6 +22,7 @@ class CartController < ApplicationController
       @cart_count = @cart_count.to_i - 1
       set_products
       set_sum
+      set_discount
     end
   end
 
@@ -31,6 +33,7 @@ class CartController < ApplicationController
       @is_valid_coupon = check_coupon_number
       if @is_valid_coupon
         set_sum
+        set_discount
         flash[:notice] = "Congratulations!! you have received a special discount"
       else
         flash[:alert] = "Your coupon number is either invalid or has been consumed"
@@ -47,7 +50,6 @@ class CartController < ApplicationController
     def set_sum
       if @products
         @sum = @products.sum(&:price)
-        @sum -= (@sum / 100) * DiscountCoupon::DISCOUNT_PERCENT if session[:coupon_number]
       end
     end
 

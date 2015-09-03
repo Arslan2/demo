@@ -1,3 +1,10 @@
 $('#remove-row-<%= @id %>').hide();
-$('#sum').text('<%= ["$", @sum].join(" ") %>');
-$('#cart-count').text('<%= @cart_count %>')
+$('#cart-count').text('<%= @cart_count %>');
+<% if @discounted_sum.present? %>
+  $('#sum').text("").append("<del><%= append_currency(@sum) %></del>");
+  $('#discounted-price-row').show();
+  $('#discounted-sum').text('<%= append_currency(@discounted_sum) %>');
+<% else %>
+  $('#sum').text('<%= append_currency(@sum) %>');
+  $('#discounted-price-row').hide();
+<% end %>

@@ -1,4 +1,12 @@
-<h1>Your Order</h1>
+<div class="row">
+  <div class="col-md-4">
+    <h1>Your Order</h1>
+  </div>
+  <div class="col-md-4 pull-right">
+    <%= link_to 'Back to Store', root_path, class: 'btn btn-default btn-sm pull-right store-button' %>
+  </div>
+</div>
+
 <% if @products.present? %>
   <table class="table" >
     <caption>Your Order</caption>
@@ -11,18 +19,36 @@
 
     <% @products.each do |product| %>
       <tr id="remove-row-<%= product.id %>">
-        <td><%= product.title %></td>
+        <td><%= link_to product.title, product_path(product) %></td>
         <td><%= truncate_string(product.body, 100) %></td>
-        <td><%= product.price %></td>
-        <td><%= link_to 'Remove', cart_remove_path, id: "remove-#{product.id}", data: { remote: true, params: { product_id: product.id }.to_param }, class: 'btn btn-warning btn-sm' %></td>
+        <td><%= append_currency(product.price) %></td>
+        <td><%= link_to 'Remove', cart_remove_path, id: "remove-#{product.id}", data: { remote: true, params: { product_id: product.id }.to_param }, class: 'btn btn-warning btn-xs' %></td>
       </tr>
     <% end %>
     <tr>
       <td><strong>Grand Total</strong></td>
       <td></td>
-      <td><strong><div id="sum"><%= ["$", @sum].join("") %></div></strong></td>
+      <td>
+        <div id="sum">
+          <strong>
+            <% if @discounted_sum.present? %>
+              <del><%= append_currency(@sum) %></del>
+            <% else %>
+              <%= append_currency(@sum) %>
+            <% end %>
+          </strong>
+        </div>
+      </td>
       <td></td>
     </tr>
+
+    <tr id="discounted-price-row" class="<%= @discounted_sum.present? ? 'discount-row' : 'discount-row row-hidden' %>">
+      <td><strong>Discounted Price</strong></td>
+      <td></td>
+      <td><strong><div id="discounted-sum"><%= append_currency(@discounted_sum) %></div></strong></td>
+      <td></td>
+    </tr>
+
   </table>
 
 <% unless @coupon_applied %>
@@ -34,7 +60,7 @@
       </div>
 
       <div class="actions">
-        <%= f.submit "Validate Coupon", class:"btn btn-info" %>
+        <%= f.submit "Apply Coupon", class: "btn btn-info" %>
       </div>
     <% end %>
   </div>
@@ -42,8 +68,7 @@
 
   <div class="row">
     <div class="col-md-6 pull-right">
-      <%= link_to 'Proceed to checkout', new_order_path, class: 'btn btn-success pull-right' %>
-      <%= link_to 'Back to store', root_path, class: 'btn btn-info pull-right align-right' %>
+      <%= link_to 'Proceed to Checkout', new_order_path, class: 'btn btn-success pull-right' %>
     </div>
   </div>
 
