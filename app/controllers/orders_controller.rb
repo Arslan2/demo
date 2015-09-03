@@ -29,7 +29,7 @@ class OrdersController < InheritedResources::Base
       update_user_address(@order.shipping_address)
       @order.save_order_products(@products)
       clear_cart
-      parameters = { user: current_user, price: get_price, address: @order.shipping_address }
+      parameters = { user: current_user, price: get_price, address: @order.shipping_address, products: @products }
       UserMailer.send_receipt(parameters).deliver
       flash[:notice] = "Order completed"
     else

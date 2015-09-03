@@ -6,4 +6,9 @@
 <p>
   Your shipping address: <%= @address %>
 </p>
+<h1>Order Details</h1>
+<% @products.each do |product| %>
+  <p>Title: <%= product.title %><p>
+  <p>Price: <%= product.price %><p>
+<% end %>
 <p>Thanks for purchasing and have a great day!</p>

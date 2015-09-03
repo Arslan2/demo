@@ -6,4 +6,10 @@ You have successfully transfered an amount of <%= @amount %> to shopify.
 
 Your shipping address: <%= @address %>
 
+Order Details
+<% @products.each do |product| %>
+  Title: <%= product.title %>
+  Price: <%= product.price %>
+<% end %>
+
 Thanks for purchasing and have a great day!
