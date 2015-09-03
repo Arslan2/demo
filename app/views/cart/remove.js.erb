@@ -5,6 +5,6 @@ $('#cart-count').text('<%= @cart_count %>');
   $('#discounted-price-row').show();
   $('#discounted-sum').text('<%= append_currency(@discounted_sum) %>');
 <% else %>
-  $('#sum').text('<%= append_currency(@sum) %>');
+  $('#sum').text("").append('<strong><%= append_currency(@sum) %></strong>');
   $('#discounted-price-row').hide();
 <% end %>
