@@ -1,12 +1,13 @@
+<h1>Order Detail</h1>
 <p>
   <b>Amount:</b>
-  <%= @order.amount %>
+  <%= append_currency(@order.amount) %>
 </p>
 
 <% if @order.discount %>
   <div>
     <strong>Discount:</strong>
-    <%= @order.discount %>
+    <%= append_currency(@order.discount) %>
   </div>
 <% end %>
 
@@ -15,4 +16,4 @@
   <%= @order.shipping_address %>
 </p>
 
-<%= link_to 'Back', root_path %>
+<%= link_to 'Buy More Products', root_path, class: "btn btn-success" %>

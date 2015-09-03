@@ -1,55 +1,53 @@
-<%= form_for(@order, html: { id: 'new_order' }) do |f| %>
-  <% if @order.errors.any? %>
-    <div class="error_messages">
-      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
-      <ul>
-      <% @order.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<div class="order-form">
+  <%= form_for(@order, html: { id: 'new_order' }) do |f| %>
+    <% if @order.errors.any? %>
+      <div class="error_messages">
+        <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+        <ul>
+        <% @order.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <h4>Original Amount: <%= append_currency(@sum) %></h4>
     </div>
+
+    <% if @discounted_sum.present? %>
+      <div class="form-group">
+        <h2>Discounted Price: <%= append_currency(@discounted_sum) %></h2>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :shipping_address %>
+      <%= f.text_area :shipping_address, rows: "3", required: true, class:"form-control" %>
+    </div>
+
+    <%= f.hidden_field :stripe_card_token %>
+
+    <% if @order.stripe_card_token %>
+      Credit card has been provided
+    <% else %>
+      <div class="form-group">
+        <%= label_tag :card_number, "Credit Card Number " %>
+        <%= text_field_tag :card_number, nil, name: nil, required: true, class:"form-control" %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :card_code, "Security Code on Card (CVV)" %>
+        <%= text_field_tag :card_code, nil, name: nil, required: true, class:"form-control" %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :card_month, "Card Expiration" %>
+        <%= select_month nil, {add_month_numbers_true: true}, {name: nil, id: "card_month"} %>
+        <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year + 15}, {name: nil, id: "card_year"} %>
+      </div>
+      <div id="stripe_error" class="error-div">
+        <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
+      </div>
+    <% end %>
+    <div class="actions"><%= f.submit "Purchase Now", class: "btn btn-success" %></div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :amount %>
-     <%= @sum %>
-    <%= f.hidden_field :amount, value: @sum %>
-  </div>
-
-  <% if @discounted_sum.present? %>
-    <div class="field">
-      <%= f.label :discounted_Price %>
-      <%= @discounted_sum %>
-      <%= f.hidden_field :discount, value: @discounted_sum %>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :shipping_address %>
-    <%= f.text_area :shipping_address, rows: "3", required: true %>
-  </div>
-
-  <%= f.hidden_field :stripe_card_token %>
-
-  <% if @order.stripe_card_token %>
-    Credit card has been provided
-  <% else %>
-    <div class="field">
-      <%= label_tag :card_number, "Credit Card Number " %>
-      <%= text_field_tag :card_number, nil, name: nil, required: true %>
-    </div>
-    <div class="field">
-      <%= label_tag :card_code, "Security Code on Card (CVV)" %>
-      <%= text_field_tag :card_code, nil, name: nil, required: true %>
-    </div>
-    <div class="field">
-      <%= label_tag :card_month, "Card Expiration" %>
-      <%= select_month nil, {add_month_numbers_true: true}, {name: nil, id: "card_month"} %>
-      <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year"} %>
-    </div>
-    <div id="stripe_error">
-      <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
-    </div>
-  <% end %>
-  <div class="actions"><%= f.submit "Purchase Now" %></div>
-<% end %>
+</div>
