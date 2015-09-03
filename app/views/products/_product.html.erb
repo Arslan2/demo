@@ -4,14 +4,14 @@
   <% end %>
 </div>
 <div class="col-md-8">
-  <div><%= product.title %></div>
-  <div><%= product.price %></div>
+  <h5><%= product.title.titleize %></h5>
+  <h4><%= append_currency(product.price) %></h4>
   <div class="product-links">
     <%= link_to 'Detail', product, class:"btn btn-success btn-sm" %>
     <%= link_to edit_product_path(product) do %>
       <%= image_tag "edit.jpg", alt: "Edit" %>
     <% end %>
-    <%= link_to product, method: :delete, data: { confirm: 'Are you sure?' } do %>
+    <%= link_to product, method: :delete, data: { confirm: 'Are you sure to delete this product?' } do %>
       <%= image_tag "cross.png", alt: "Delete" %>
     <% end %>
   </div>

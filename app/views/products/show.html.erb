@@ -7,28 +7,30 @@
   </div>
 </div>
 
-<b>Product Owner</b>
-<%= link_to display_name(@product.user), user_path(@product.user) %>
+<div class="row">
+  <% if @product.attachments.present? %>
+    <% @product.attachments.each do |attachment| %>
+      <div class="col-md-4 thumbnail">
+        <%= image_tag fetch_image(attachment) %>
+      </div>
+    <% end %>
+  <% else %>
+    <%= image_tag fetch_image(@product.attachments.first) %>
+  <% end %>
+</div>
 
 <div>
-  <b>Description:</b>
+  <h3>Price:<%= append_currency(@product.price) %></h3>
+</div>
+
+
+<div>
+  <h3>Description:</h3>
   <%= @product.body %>
 </div>
 
-<div>
-  <b>Price: $</b>
-  <%= @product.price %>
-</div>
-
-<% if @product.attachments.present? %>
-  <% @product.attachments.each do |attachment| %>
-    <div>
-      <%= image_tag fetch_image(attachment) %>
-    </div>
-  <% end %>
-<% else %>
-  <%= image_tag fetch_image(@product.attachments.first) %>
-<% end %>
+<b>More products from this seller</b>
+<%= link_to display_name(@product.user), user_path(@product.user) %>
 
 <h1>Reviews</h1>
 <ul id ="show-reviews">
@@ -37,7 +39,7 @@
     <%= render 'reviews/full_review', review: review %>
     <% if owner?(@product.user_id) %>
       <div>
-        <%= link_to product_review_path(@product, review), method: :delete, data: { confirm: 'Are you sure?' } do %>
+        <%= link_to product_review_path(@product, review), method: :delete, data: { confirm: 'Are you sure to delete this review?' } do %>
           <%= image_tag "cross.png", alt: "Delete" %>
         <% end %>
       </div>
@@ -45,9 +47,11 @@
   <% end %>
 </ul>
 
+<%= link_to 'See All Reviews', product_reviews_path(@product) %>
+
 <% if owner?(@product.user_id) %>
   <%= link_to 'Edit', edit_product_path(@product), class: "btn btn-warning" %>
 <% else %>
   <%= render 'reviews/ajax_form' if current_user.present? %>
 <% end %>
-<%= link_to 'Back', products_path %>
+<%= link_to 'Back', products_path, class: "btn btn-default" %>

@@ -8,7 +8,9 @@
       <div class="col-sm-6 col-md-4">
         <div class="thumbnail">
           <div class ="image-container">
-            <%= image_tag fetch_image(product.attachments.first) %>
+            <%= link_to product do %>
+              <%= image_tag fetch_image(product.attachments.first) %>
+            <% end %>
           </div>
           <div class="caption">
             <div class="row">
@@ -16,7 +18,7 @@
                 <h2><%= product.title %></h2>
               </div>
               <div class="col-md-3 product-price">
-                <h3><%= append_currency(product.price.to_i) %></h3>
+                <h3><%= append_currency(product.price) %></h3>
               </div>
             </div>
             <h4><%= truncate_string(product.body, 30) %></h4>
