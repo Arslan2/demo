@@ -1,8 +1,8 @@
-<h1>Listing reviews</h1>
+<h1><%= @product.title %></h1>
 
 <table>
   <tr>
-    <th>Comment</th>
+    <th>Reviews</th>
     <th></th>
     <th></th>
     <th></th>
@@ -10,7 +10,7 @@
 
   <% @reviews.each do |review| %>
     <tr>
-      <td><%= review.comment %></td>
+      <td><%= link_to review.comment, product_path(@product) %></td>
       <% if owner?(review.user_id) %>
         <td><%= link_to 'Edit', edit_product_review_path(@product, review) %></td>
         <td><%= link_to 'Destroy', product_review_path(@product, review), method: :delete, data: { confirm: 'Are you sure?' } %></td>
