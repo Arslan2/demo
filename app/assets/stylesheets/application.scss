@@ -56,3 +56,27 @@
 .cart-icon {
   margin-top: 15px;
 }
+
+.order-form {
+  width: 500px;
+}
+
+.error-div {
+  background-color: #DF0101;
+  color: #FDF8F8;
+}
+
+html, body {
+  height: 100%;
+}
+
+.wrap-container {
+  min-height: 100%;
+}
+.footer-div {
+  bottom: 0;
+}
+
+a:hover {
+  text-decoration: none;
+}

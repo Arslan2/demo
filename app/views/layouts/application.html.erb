@@ -7,26 +7,28 @@
     <%= csrf_meta_tags %>
     <%= tag :meta, name: "stripe-key", content: STRIPE_PUBLIC_KEY %>
   </head>
-  <body class="container demo-container">
+  <div class="wrap-container">
+    <body class="container demo-container">
 
-    <%= render 'layouts/header' %>
+      <%= render 'layouts/header' %>
 
-  <div id="notice-msg">
-    <% if notice %>
-      <div class="alert alert-info" role="alert"><%= notice %></div>
-    <% end %>
+    <div id="notice-msg">
+      <% if notice %>
+        <div class="alert alert-info" role="alert"><%= notice %></div>
+      <% end %>
+    </div>
+
+    <div id="alert-msg">
+      <% if alert %>
+        <div class="alert alert-warning" role="alert"><%= alert %></div>
+      <% end %>
+    </div>
+
+      <%= yield %>
+
+    </body>
   </div>
 
-  <div id="alert-msg">
-    <% if alert %>
-      <div class="alert alert-warning" role="alert"><%= alert %></div>
-    <% end %>
-  </div>
-
-    <%= yield %>
-
-  </body>
-
-  <%= render 'layouts/footer' %>
+    <%= render 'layouts/footer' %>
 
 </html>
