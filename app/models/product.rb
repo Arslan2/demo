@@ -3,7 +3,7 @@ class Product < ActiveRecord::Base
   PAGE_SIZE = 12
   paginates_per 5
 
-  attr_accessible :body, :price, :title, :attachments_attributes, :user_id
+  attr_accessible :body, :price, :title, :attachments_attributes, :user_id, :delta
 
   has_many :attachments, as: :attachable, dependent: :destroy
   has_many  :reviews, dependent: :destroy
