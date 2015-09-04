@@ -44,3 +44,6 @@ gem "jquery-ui-rails"
 
 # To use debugger
 # gem 'debugger'
+
+gem 'pg'
+ruby '2.0.0'
