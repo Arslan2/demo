@@ -66,7 +66,6 @@ class CartController < ApplicationController
     end
 
     def check_coupon_applied
-      @coupon_applied = false
       @coupon_applied = true if session[:coupon_number].present?
     end
 
