@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
 
   scope :ordered, -> { order('updated_at desc') }
   def fetch_attachment
-    self.attachment.present? ? self.attachment : self.build_attachment
+    self.attachment || self.build_attachment
   end
 
 end
