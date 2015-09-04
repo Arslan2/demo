@@ -37,9 +37,14 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    return new_order_path if session[:checkout_path]
-    return admin_dashboard_path if request.referer == new_user_session_path
-    return user_dashboard_path
+    if session[:checkout_path]
+      session.delete(:checkout_path)
+      new_order_path
+    elsif resource_class == AdminUser
+      admin_dashboard_path
+    elsif resource_class == User
+      user_dashboard_path
+    end
   end
 
   def set_discount
