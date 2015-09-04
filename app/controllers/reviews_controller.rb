@@ -6,7 +6,7 @@ class ReviewsController < ApplicationController
   respond_to :html, :js
 
   def index
-    @reviews = Product.find(params[:product_id]).reviews
+    @reviews = @product.reviews
     respond_with(@reviews)
   end
 
@@ -22,7 +22,7 @@ class ReviewsController < ApplicationController
 
   def create
     unless owner?(@product.user_id)
-      @review = @product.reviews.build(params[:review])
+      @review = @product.reviews.new(params[:review])
       @review.user_id = current_user.id
       @review.save
       respond_to do |format|
