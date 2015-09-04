@@ -11,7 +11,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @reviews = @product.reviews
+    @reviews = @product.reviews.limit(Product::REVIEWS_PER_PAGE)
     @review = Review.new
     respond_with(@product)
   end

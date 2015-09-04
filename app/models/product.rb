@@ -2,6 +2,7 @@ class Product < ActiveRecord::Base
 
   PAGE_SIZE = 12
   paginates_per 5
+  REVIEWS_PER_PAGE = 3
 
   attr_accessible :body, :price, :title, :attachments_attributes, :user_id, :delta
 
