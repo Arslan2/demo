@@ -44,8 +44,7 @@ class OrdersController < InheritedResources::Base
   end
 
   def update_user_address(new_address)
-    current_user.address = new_address
-    current_user.save
+    current_user.update_attributes(address: new_address)
   end
 
   def clear_cart
